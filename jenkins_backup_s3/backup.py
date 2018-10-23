@@ -126,10 +126,6 @@ def create(ctx, jenkins_home, tmp, tar, tar_opts, exclude_vcs, ignore_fail, excl
         command.append('--exclude=archive')
     if exclude_target:
         command.append('--exclude=target')
-    if exclude_builds:
-        command.append('--exclude=jobs/*')
-    if exclude_workspace:
-        command.append('--exclude=workspace/*')
     if exclude_maven:
         command.append('--exclude=.m2/repository')
     if exclude_logs:
@@ -137,6 +133,8 @@ def create(ctx, jenkins_home, tmp, tar, tar_opts, exclude_vcs, ignore_fail, excl
     for e in exclude:
         command.append("--exclude=%s" % e)
 
+    command.append('--exclude=./jobs/*')
+    command.append('--exclude=./workspace/*')
     command.append('.')
 
     logger.info(colored("Executing command \"%s\"" % ' '.join(command), 'blue'))
