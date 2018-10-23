@@ -109,7 +109,7 @@ def cli(ctx, bucket, bucket_prefix, bucket_region, log_level):
 @click.option('--exclude-workspace/--include-workspace', default=True, help='Exclude job workspace directories from the backup : defaults to true')
 @click.option('--exclude-maven/--include-maven', default=True, help='Exclude maven repository from the backup : defaults to true')
 @click.option('--exclude-logs/--include-logs', default=True, help='Exclude logs from the backup : defaults to true')
-@click.option('--exclude', '-e', type=click.STRING, multiple=True, help='Additional direcoties to exclude from the backup')
+@click.option('--exclude', '-e', type=click.STRING, multiple=True, help='Additional directories to exclude from the backup')
 @click.option('--dry-run', type=click.BOOL, is_flag=True, help='Create tar archive as "tmp" but do not upload it to S3 : defaults to false')
 def create(ctx, jenkins_home, tmp, tar, tar_opts, exclude_vcs, ignore_fail, exclude_archive, exclude_target,
             exclude_builds, exclude_workspace, exclude_maven, exclude_logs, exclude, dry_run):
@@ -127,9 +127,9 @@ def create(ctx, jenkins_home, tmp, tar, tar_opts, exclude_vcs, ignore_fail, excl
     if exclude_target:
         command.append('--exclude=target')
     if exclude_builds:
-        command.append('--exclude=jobs/*/builds/*')
+        command.append('--exclude=jobs/*')
     if exclude_workspace:
-        command.append('--exclude=jobs/*/workspace/*')
+        command.append('--exclude=workspace/*')
     if exclude_maven:
         command.append('--exclude=.m2/repository')
     if exclude_logs:
